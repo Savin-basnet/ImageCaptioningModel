@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepali AI Image Captioner</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="site-wrapper">
+        <header class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <i class="fas fa-language"></i>
+                    <span>Nepali Caption Generator</span>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#caption-tool">Generate Caption</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#about-us">About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section id="caption-tool" class="caption-tool-section section-spacing bg-light">
+                <div class="container">
+                    <h3>Your Image, Our Words</h3>
+                    <p class="section-description">Easily get descriptive captions for any image. Powered by cutting-edge AI.</p>
+
+                    <div class="upload-area">
+                        <form class="upload-form" id="imageUploadForm" method="post" enctype="multipart/form-data">
+                            <input type="file" name="file" id="imageFileInput" accept=".jpg,.jpeg,.png" required hidden>
+                            <label for="imageFileInput" class="upload-button">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <span>Click to upload image</span>
+                                <span class="file-name" id="fileName">No file selected</span>
+                            </label>
+                            <button type="submit" class="generate-caption-btn">Generate Caption</button>
+                        </form>
+                    </div>
+
+                    <div class="image-display-area">
+                        <div class="image-preview-box">
+                            <img id="imagePreview" src="data:image/png;base64,{{ image_data }}" alt="Image Preview" class="active">
+                            <p id="imagePlaceholderText" class="placeholder-text hidden">Your image will appear here.</p>
+                        </div>
+                        <div class="caption-result-box">
+                            <h4>Generated Caption:</h4>
+                            <p id="imageCaption" class="caption-text">{{ caption }}</p>
+                            <div class="filename" id="jsFilenameDisplay">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-it-works" class="how-it-works-section section-spacing">
+                <div class="container">
+                    <h3>How It Works</h3>
+                    <div class="steps-grid">
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fas fa-upload"></i></div>
+                            <h4>1. Upload</h4>
+                            <p>Select an image from your device.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fas fa-cogs"></i></div>
+                            <h4>2. Process</h4>
+                            <p>Our AI analyzes the content of your image.</p>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon"><i class="fas fa-comment"></i></div>
+                            <h4>3. Get Caption</h4>
+                            <p>Instantly receive a descriptive caption.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about-us" class="about-us-section section-spacing bg-light">
+                <div class="container">
+                    <h3>About Nepali AI Caption Genie</h3>
+                    <p class="section-description">We are passionate about using artificial intelligence to simplify content creation and improve accessibility. Our goal is to provide fast, accurate and easy-to-use image captioning solutions for everyone.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <i class="fas fa-language"></i>
+                        <span>Nepali Caption Genie</span>
+                    </div>
+                    <div class="footer-links">
+                        <ul>
+                            <li><a href="#caption-tool">Generate Caption</a></li>
+                            <li><a href="#how-it-works">How It Works</a></li>
+                            <li><a href="#about-us">About Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2082 Nepali AI Caption Genie. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+
+<style>
+    /* Variables for easy theming */
+:root {
+    --primary-color: #007bff; /* A vibrant blue */
+    --primary-dark: #0056b3;
+    --accent-color: #28a745; /* A green accent */
+    --background-light: #f8f9fa;
+    --background-dark: #343a40;
+    --text-color: #333;
+    --light-text-color: #6c757d;
+    --border-color: #e9ecef;
+    --card-bg: #fff;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+    --shadow-medium: rgba(0, 0, 0, 0.15);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--background-light);
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.8rem; }
+h3 { font-size: 2.2rem; }
+h4 { font-size: 1.8rem; }
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.section-spacing {
+    padding: 100px 0;
+}
+
+.bg-light {
+    background-color: var(--background-light);
+}
+
+.section-description {
+    font-size: 1.15rem;
+    color: var(--light-text-color);
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    text-align: center;
+}
+
+/* Header */
+.main-header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 10px var(--shadow-light);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideInDown 0.8s ease-out;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.logo i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav ul li a {
+    color: var(--text-color);
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.main-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: var(--primary-color);
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease-out;
+}
+
+.main-nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero-bg.jpg') no-repeat center center/cover; /* Placeholder, replace with your own hero-bg.jpg */
+    color: #fff;
+    text-align: center;
+    padding: 150px 0;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section h2 {
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+    color: #fff;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.hero-section p {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 1.2s ease-out 0.3s;
+    animation-fill-mode: backwards; /* Keeps element hidden before animation */
+}
+
+.hero-section .btn {
+    animation: fadeInUp 1s ease-out 0.6s;
+    animation-fill-mode: backwards;
+}
+
+/* Caption Tool Section */
+.caption-tool-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.upload-area {
+    margin-bottom: 50px;
+    padding: 40px;
+    border: 3px dashed var(--primary-color);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--card-bg);
+    box-shadow: 0 8px 25px var(--shadow-light);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-dark);
+    box-shadow: 0 12px 30px var(--shadow-medium);
+}
+
+/* Style the form within the upload area */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Space between elements in the form */
+    width: 100%; /* Make the form take full width of its parent */
+}
+
+/* Style the label which acts as the custom file upload button */
+.upload-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: fit-content; /* Adjust width to content */
+    margin: 0 auto; /* Center the button */
+}
+
+.upload-button:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+.upload-icon {
+    font-size: 1.8rem;
+}
+
+.file-name {
+    font-size: 0.9rem;
+    color: #f0f0f0; /* Lighter color for file name on button */
+    margin-left: 10px; /* Space between text and file name */
+}
+
+/* Style the 'Generate Caption' button */
+.generate-caption-btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+}
+
+.generate-caption-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+
+
+.image-display-area {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.image-preview-box {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    height: 350px;
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 5px 15px var(--shadow-light);
+}
+
+#imagePreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensures the entire image is visible */
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.placeholder-text {
+    position: absolute;
+    color: var(--light-text-color);
+    font-style: italic;
+    font-size: 1.2rem;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.image-preview-box #imagePreview.active + .placeholder-text {
+    opacity: 0; /* Hide placeholder when image is active */
+}
+
+.hidden {
+    display: none;
+}
+
+.caption-result-box {
+    flex: 1;
+    min-width: 300px;
+    max-width: 600px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    text-align: center;
+    min-height: 180px; /* Give it some consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.caption-result-box h4 {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.caption-text {
+    font-size: 1.25rem;
+    color: var(--dark-text);
+    font-weight: 600;
+    line-height: 1.5;
+    word-break: break-word; /* Ensure long captions break correctly */
+}
+
+.filename {
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+    margin-top: 15px;
+}
+
+/* How It Works Section */
+.how-it-works-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.step-item {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px var(--shadow-medium);
+}
+
+.step-icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    animation: bounceIn 1s ease-out backwards; /* Example animation */
+}
+
+.step-item:nth-child(1) .step-icon { animation-delay: 0.1s; }
+.step-item:nth-child(2) .step-icon { animation-delay: 0.3s; }
+.step-item:nth-child(3) .step-icon { animation-delay: 0.5s; }
+
+.step-item h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.step-item p {
+    color: var(--light-text-color);
+}
+
+/* About Us Section */
+.about-us-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Footer */
+.main-footer {
+    background-color: var(--background-dark);
+    color: #fff;
+    padding: 50px 0 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.footer-logo i {
+    margin-right: 10px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links ul li a {
+    color: #bbb;
+    font-weight: 400;
+}
+
+.footer-links ul li a:hover {
+    color: var(--primary-color);
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: #bbb;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .hero-section h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    h3 { font-size: 1.8rem; }
+    h4 { font-size: 1.4rem; }
+
+    .main-header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .hero-section {
+        padding: 100px 0;
+        min-height: 400px;
+    }
+
+    .hero-section h2 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.1rem;
+    }
+
+    .section-spacing {
+        padding: 70px 0;
+    }
+
+    .image-display-area {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-preview-box, .caption-result-box {
+        max-width: 100%;
+        min-width: unset;
+    }
+
+    .image-preview-box {
+        height: 280px;
+    }
+
+    .caption-result-box {
+        min-height: 150px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .footer-links ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.8rem; }
+    h3 { font-size: 1.5rem; }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+    .logo i {
+        font-size: 1.6rem;
+    }
+
+    .hero-section h2 {
+        font-size: 2rem;
+    }
+
+    .upload-form {
+        gap: 15px;
+    }
+
+    .upload-button {
+        flex-direction: column;
+        padding: 15px;
+        font-size: 1rem;
+        gap: 8px;
+        width: 100%;
+    }
+    .upload-icon {
+        font-size: 1.5rem;
+    }
+
+    .file-name {
+        margin-left: 0;
+    }
+
+    .generate-caption-btn {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    .image-preview-box {
+        height: 220px;
+    }
+
+    .caption-text {
+        font-size: 1.1rem;
+    }
+
+    .step-item h4 {
+        font-size: 1.3rem;
+    }
+}
+
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0%, 20%, 40%, 60%, 80%, 100% {
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    0% {
+        opacity: 0;
+        transform: scale3d(.3, .3, .3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(.97, .97, .97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+</style>
+
+</body>
+</html>
