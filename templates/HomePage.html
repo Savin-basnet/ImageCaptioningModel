@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Image Analysis AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-white to-blue-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold flex items-center space-x-2">
+        <span class="bg-blue-600 text-white rounded-full p-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553 2.276A1 1 0 0120 13.118V18a2 2 0 01-2 2H6a2 2 0 01-2-2v-4.882a1 1 0 01.447-.842L9 10m6 0V6a3 3 0 00-6 0v4m6 0H9" /></svg></span>
+        <span>Image Analysis AI</span>
+      </h1>
+      <nav class="space-x-6 hidden md:block">
+        <a href="/homepage" class="text-gray-600 hover:text-blue-600">Home</a>
+        <a href="#features" class="text-gray-600 hover:text-blue-600">Features</a>
+        <a href="/imagecaptions" class="text-gray-600 hover:text-blue-600">Analysis</a>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+      </nav>
+      <div class="space-x-4">
+        <a href="/auth">Sign In</a>
+        <button class="bg-black text-white px-4 py-2 rounded hover:bg-gray-900">Get Started</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center py-20 px-4" id="analysis">
+    <p class="text-sm font-medium text-blue-600 mb-2">⚡ Powered by Advanced AI Models</p>
+    <h2 class="text-4xl font-bold mb-4">Analyze Images with <span class="text-blue-600">AI Vision</span></h2>
+    <p class="max-w-xl mx-auto text-gray-600 mb-8">Upload any image and get instant object detection, scene descriptions, and detailed analysis powered by state-of-the-art machine learning models.</p>
+    <div class="flex justify-center space-x-4">
+      <button class="bg-black text-white px-6 py-3 rounded hover:bg-gray-800"><a href="/imagecaptions">Analyzing →</a></button>
+      <button class="border border-gray-300 px-6 py-3 rounded hover:bg-gray-100">Learn More</button>
+    </div>
+    <p class="text-sm mt-4 text-gray-500">Developed by <strong>Arun Thapa</strong> • Made in Nepal 🇳🇵</p>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-16 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-4">Powerful Features</h2>
+    <p class="text-center text-gray-600 mb-10">Discover the advanced capabilities that make VisionAI the leading choice for image analysis</p>
+
+    <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+      <!-- Feature Card -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow">
+        <div class="flex justify-between items-center mb-3">
+          <div class="text-2xl">👁️</div>
+          <span class="text-xs px-2 py-1 bg-gray-200 rounded">AI-Powered</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Advanced Object Detection</h3>
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
+          <li>Real-time detection</li>
+          <li>Bounding box coordinates</li>
+          <li>Confidence scores</li>
+          <li>Multiple objects per image</li>
+        </ul>
+      </div>
+
+      <!-- Scene Understanding -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow">
+        <div class="flex justify-between items-center mb-3">
+          <div class="text-2xl">🌳</div>
+          <span class="text-xs px-2 py-1 bg-gray-200 rounded">Smart</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Scene Understanding</h3>
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
+          <li>Contextual descriptions</li>
+          <li>Natural language output</li>
+          <li>Scene composition</li>
+          <li>Activity recognition</li>
+        </ul>
+      </div>
+
+      <!-- Lightning Fast -->
+      <div class="bg-gray-50 p-6 rounded-xl shadow">
+        <div class="flex justify-between items-center mb-3">
+          <div class="text-2xl">⚡</div>
+          <span class="text-xs px-2 py-1 bg-gray-200 rounded">Fast</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Lightning Fast</h3>
+        <ul class="list-disc list-inside text-gray-600 space-y-1">
+          <li>GPU acceleration</li>
+          <li>Batch processing</li>
+          <li>Edge optimization</li>
+          <li>Real-time analysis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-blue-50">
+    <h2 class="text-3xl font-bold text-center mb-2">Contact Us</h2>
+    <p class="text-center text-gray-600 mb-10">Have questions about VisionAI? Get in touch with Arun Thapa and the development team.</p>
+
+    <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto px-6">
+      <!-- Contact Info -->
+      <div class="bg-white p-6 rounded-xl shadow space-y-4">
+        <h3 class="text-xl font-semibold">Get in Touch</h3>
+        <p class="text-gray-600">We're here to help and answer any questions you might have</p>
+        <div>
+          <p class="font-semibold">Email</p>
+          <p class="text-blue-600">mrcaption@visionai.com</p>
+        </div>
+        <div>
+          <p class="font-semibold">Phone</p>
+          <p class="text-blue-600">+977-9800000000</p>
+        </div>
+        <div>
+          <p class="font-semibold">Address</p>
+          <p>Bharatpur, Kathmandu<br>Nepal 44600</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="bg-white p-6 rounded-xl shadow space-y-4">
+        <h3 class="text-xl font-semibold">Send us a Message</h3>
+        <form action="https://formspree.io/f/xpwrnqoq" method="POST" class="space-y-4">
+  <div class="flex space-x-4">
+    <input type="text" name="name" placeholder="Your full name" class="w-1/2 border border-gray-300 p-2 rounded" required />
+    <input type="email" name="email" placeholder="your.email@example.com" class="w-1/2 border border-gray-300 p-2 rounded" required />
+  </div>
+  <input type="text" name="subject" placeholder="What's this about?" class="w-full border border-gray-300 p-2 rounded" required />
+  <textarea name="message" rows="4" placeholder="Tell us more..." class="w-full border border-gray-300 p-2 rounded" required></textarea>
+  <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Send Message</button>
+</form>
+
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

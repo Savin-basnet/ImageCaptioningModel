@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Signup Forms</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #e0e7ff;
+            /* Light purple background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            /* Add some padding for smaller screens */
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            /* Changed from solid white to a subtle gradient */
+            background: linear-gradient(to bottom right,
+                    #e458ec,
+                    #8bf586);
+            /* White to very light blue/purple gradient */
+            border-radius: 1.5rem;
+            /* More rounded corners */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            /* Increased padding */
+            width: 100%;
+            max-width: 420px;
+            /* Max width similar to image */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            background-color: #f3f4f6;
+            /* Light gray for toggle background */
+            border-radius: 0.75rem;
+            /* Rounded toggle buttons */
+            padding: 0.25rem;
+            margin-bottom: 2rem;
+            width: fit-content;
+            /* Fit content width */
+        }
+
+        .toggle-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.625rem;
+            /* Slightly less rounded than container */
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            color: #4b5563;
+            /* Gray text for inactive */
+        }
+
+        .toggle-button.active {
+            background-color: #2563eb;
+            /* Blue for active button */
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.875rem 1.25rem;
+            /* Increased padding for inputs */
+            border: 1px solid #d1d5db;
+            /* Light gray border */
+            border-radius: 0.75rem;
+            /* Rounded input fields */
+            margin-bottom: 1rem;
+            /* Spacing between inputs */
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
+        }
+
+        .input-field:focus {
+            border-color: #2563eb;
+            /* Blue border on focus */
+        }
+
+        .main-button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background-color: #2563eb;
+            /* Blue button */
+            color: #fff;
+            border-radius: 0.75rem;
+            /* Rounded button */
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out,
+                transform 0.1s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-button:hover {
+            background-color: #1d4ed8;
+            /* Darker blue on hover */
+            transform: translateY(-1px);
+        }
+
+        .link-text {
+            color: #2563eb;
+            /* Blue link text */
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .link-text:hover {
+            color: #1d4ed8;
+            /* Darker blue on hover */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2 id="form-title" class="text-3xl font-bold mb-8 text-gray-800">
+            Login Form
+        </h2>
+
+        <div class="toggle-buttons">
+            <button id="login-tab" class="toggle-button active">Login</button>
+            <button id="signup-tab" class="toggle-button">Signup</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" action="{{ url_for('auth.login') }}" method="POST" class="w-full">
+            <input type="email" name="email" placeholder="Email Address" class="input-field" required />
+            <input type="password" name="password" placeholder="Password" class="input-field" required />
+            <button type="submit" class="main-button mb-6">Login</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" action="{{ url_for('auth.signup') }}" method="POST" class="w-full hidden">
+            <input type="email" name="email" placeholder="Email Address" class="input-field" required />
+            <input type="password" name="password" placeholder="Password" class="input-field" required />
+            <input type="password" name="confirm_password" placeholder="Confirm password" class="input-field"
+                required />
+            <button type="submit" class="main-button mb-6">Signup</button>
+        </form>
+
+
+        
+    </div>
+
+    <script>
+        const loginTab = document.getElementById("login-tab");
+        const signupTab = document.getElementById("signup-tab");
+        const loginForm = document.getElementById("login-form");
+        const signupForm = document.getElementById("signup-form");
+        const formTitle = document.getElementById("form-title");
+        const signupLink = document.getElementById("signup-link");
+        const loginLink = document.getElementById("login-link");
+
+        // Function to show login form
+        function showLoginForm() {
+            loginTab.classList.add("active");
+            signupTab.classList.remove("active");
+            loginForm.classList.remove("hidden");
+            signupForm.classList.add("hidden");
+            formTitle.textContent = "Login Form";
+        }
+
+        // Function to show signup form
+        function showSignupForm() {
+            signupTab.classList.add("active");
+            loginTab.classList.remove("active");
+            signupForm.classList.remove("hidden");
+            loginForm.classList.add("hidden");
+            formTitle.textContent = "Signup Form";
+        }
+
+        // Event listeners for tab buttons
+        loginTab.addEventListener("click", showLoginForm);
+        signupTab.addEventListener("click", showSignupForm);
+
+        // Event listeners for "Signup now" and "Login now" links
+        signupLink.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            showSignupForm();
+        });
+
+        loginLink.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            showLoginForm();
+        });
+
+        // Optional: Add form submission handling (for demonstration, just logs to console)
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Login form submitted!");
+            // Here you would typically send data to a server
+            alert("Login attempt (check console for details)");
+        });
+
+        signupForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log("Signup form submitted!");
+            // Here you would typically send data to a server
+            alert("Signup attempt (check console for details)");
+        });
+
+        // Custom alert function to avoid window.alert()
+        function alert(message) {
+            const alertBox = document.createElement("div");
+            alertBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #333;
+                color: #fff;
+                padding: 15px 25px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                text-align: center;
+            `;
+            alertBox.textContent = message;
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 3000); // Remove after 3 seconds
+        }
+    </script>
+</body>
+
+</html>
