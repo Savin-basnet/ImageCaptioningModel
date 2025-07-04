@@ -4,13 +4,18 @@ from flask import Flask, redirect, url_for
 from blueprint.ImageCaption import bp_imageCaption, load_models
 from blueprint.HomePage import bp_home
 from blueprint.auth import auth
+from blueprint.Profile import bp_profile
+
 
 UPLOAD_FOLDER = 'static/uploads'
+
+
 
 app = Flask(__name__)
 app.secret_key = 'swaruptharu117'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB limit
+
 
 # Load models at startup
 load_models()
@@ -19,6 +24,7 @@ load_models()
 app.register_blueprint(bp_home, url_prefix='/homepage')
 app.register_blueprint(bp_imageCaption)  # Caption routes at /caption
 app.register_blueprint(auth)
+app.register_blueprint(bp_profile)
 
 # Root URL redirects to /homepage
 @app.route('/')

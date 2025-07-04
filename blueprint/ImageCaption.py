@@ -15,6 +15,13 @@ import re
 import numpy as np
 import matplotlib.pyplot as plt
 
+import mysql.connector
+from mysql.connector import Error
+import os
+from flask import current_app, session
+
+
+
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow import keras
@@ -45,6 +52,21 @@ from configparser import ConfigParser
 
 # === Blueprint ===
 bp_imageCaption = Blueprint('image_caption', __name__)
+
+# databse connection 
+def get_db_connection():
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='swarupdb'
+        )
+        return connection
+    except Error as e:
+        print(f"Database connection error: {e}")
+        return None
+
 
 # config = configparser.ConfigParser()
 # config.read('your_config.ini')
@@ -465,8 +487,15 @@ def generate_caption(image_path):
 
 @bp_imageCaption.route('/imagecaptions', methods=['GET', 'POST'])
 def upload_file():
-    UPLOAD_FOLDER = current_app.config['UPLOAD_FOLDER']
+    UPLOAD_FOLDER = current_app.config.get('UPLOAD_FOLDER', 'static/uploads')
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
     if request.method == 'POST':
+        # ✅ Check user ID in session
+        user_id = session.get('id')  # Make sure you store user ID in session at login!
+        if not user_id:
+            return "User not logged in. Please login to upload.", 403
+
         if 'file' not in request.files:
             return redirect(request.url)
 
@@ -479,6 +508,25 @@ def upload_file():
             filepath = os.path.join(UPLOAD_FOLDER, filename)
             file.save(filepath)
 
+            # ✅ Save to DB with user ID
+            connection = get_db_connection()
+            if connection:
+                try:
+                    cursor = connection.cursor()
+                    insert_query = """
+                    UPDATE projectusers
+                    SET uploadeduserpic = %s
+                    WHERE id = %s
+                """
+                    cursor.execute(insert_query, (filename,user_id))
+                    connection.commit()
+                    cursor.close()
+                except Exception as e:
+                    print(f"Database Insert Error: {e}")
+                finally:
+                    connection.close()
+
+            # Assuming you have these functions
             caption = generate_caption(filepath)
             image_base64 = generate_caption_image(filepath, caption)
 

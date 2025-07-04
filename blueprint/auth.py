@@ -9,7 +9,7 @@ def get_db_connection():
         host='localhost',
         user='root',
         password='',
-        database='userbd'
+        database='swarupdb'
     )
     return conn
 
@@ -22,16 +22,16 @@ def login():
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute('SELECT * FROM users WHERE email = %s AND password = %s', (email, password))
+    cursor.execute('SELECT * FROM projectusers WHERE email = %s AND password = %s', (email, password))
     user = cursor.fetchone()
 
     cursor.close()
     conn.close()
 
     if user:
-        session['user_id'] = user['id']
+        session['id'] = user['id']
         session['email'] = user['email']
-        return redirect(url_for('auth.profile'))
+        return redirect(url_for('profile.profile'))
     else:
         flash('Invalid email or password')
         return redirect(url_for('auth.login_page'))
@@ -42,6 +42,7 @@ def signup():
     email = request.form['email']
     password = request.form['password']
     confirm_password = request.form['confirm_password']
+    full_name=request.form['FullName']
 
     if password != confirm_password:
         flash('Passwords do not match!')
@@ -51,12 +52,12 @@ def signup():
     cursor = conn.cursor()
 
     # Check if email exists
-    cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
+    cursor.execute('SELECT * FROM projectusers WHERE email = %s', (email,))
     if cursor.fetchone():
         flash('Email already registered!')
         return redirect(url_for('auth.login_page'))
 
-    cursor.execute('INSERT INTO users (email, password) VALUES (%s, %s)', (email, password))
+    cursor.execute('INSERT INTO projectusers (email, password, fullname) VALUES (%s, %s,%s)', (email, password,full_name))
     conn.commit()
 
     cursor.close()
@@ -71,8 +72,8 @@ def login_page():
     return render_template('LoginSignup.html')
 
 # Profile page
-@auth.route('/profile')
-def profile():
-    if 'user_id' not in session:
-        return redirect(url_for('auth.login_page'))
-    return render_template('profile.html', email=session['email'])
+# @auth.route('/profile')
+# def profile():
+#     if 'user_id' not in session:
+#         return redirect(url_for('auth.login_page'))
+#     return render_template('profile.html', email=session['email'])
