@@ -493,9 +493,7 @@ def upload_file():
     if request.method == 'POST':
         # ✅ Check user ID in session
         user_id = session.get('id')  # Make sure you store user ID in session at login!
-        if not user_id:
-            return "User not logged in. Please login to upload.", 403
-
+        
         if 'file' not in request.files:
             return redirect(request.url)
 
@@ -522,7 +520,10 @@ def upload_file():
                     connection.commit()
                     cursor.close()
                 except Exception as e:
-                    print(f"Database Insert Error: {e}")
+                    return render_template('analysis.html',
+                                   image_data=image_base64,
+                                   caption=caption,
+                                   filename=filename)
                 finally:
                     connection.close()
 
