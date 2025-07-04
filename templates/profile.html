@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Adviser Profile</title>
   <style>
     /* Reset */
@@ -24,7 +25,7 @@
       align-items: center;
       background: #fff;
       padding: 1rem 2rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     .logo {
@@ -69,7 +70,7 @@
       background: #fff;
       padding: 2rem;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
     }
 
@@ -105,7 +106,7 @@
       background: #f0f6ff;
       border-radius: 8px;
       padding: 1rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     }
 
     .image-card h3 {
@@ -121,12 +122,13 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar (copied from login/signup page) -->
   <nav class="navbar">
     <div class="logo">
-      <img src="your-logo.png" alt="Logo" class="logo-icon"/>
+      <img src="your-logo.png" alt="Logo" class="logo-icon" />
       <span>Image Analysis AI</span>
     </div>
     <ul class="nav-links">
@@ -142,7 +144,9 @@
   <!-- Profile Section -->
   <div class="profile-container">
     <div class="profile-header">
-      <img src="https://imgs.search.brave.com/OLipHLgA-10j8HzuLdO95KRd9ONXVEHttOCsEL7JC4w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNTIv/NzU1Lzk4MS9zbWFs/bC9hLW1hbi1wcm9m/aWxlLWF2YXRhci1p/Y29uLXdpdGgtYS13/aGl0ZS1iYWNrZ3Jv/dW5kLWZyZWUtdmVj/dG9yLmpwZw" alt="Profile Picture">
+      <img
+        src="https://imgs.search.brave.com/OLipHLgA-10j8HzuLdO95KRd9ONXVEHttOCsEL7JC4w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNTIv/NzU1Lzk4MS9zbWFs/bC9hLW1hbi1wcm9m/aWxlLWF2YXRhci1p/Y29uLXdpdGgtYS13/aGl0ZS1iYWNrZ3Jv/dW5kLWZyZWUtdmVj/dG9yLmpwZw"
+        alt="Profile Picture">
       <h2>{{userinfo.fullname}}</h2>
       <p>📧 {{userinfo.email}}</p>
     </div>
@@ -152,20 +156,9 @@
         <h3>Image History</h3>
         <img src="{{ userphoto }}" alt="History Image">
       </div>
-      <div class="image-card">
-        <h3>Image History</h3>
-        <img src="{{ userphoto }}" alt="History Image">
-      </div>
-      <div class="image-card">
-        <h3>Image History</h3>
-        <img src="{{ userphoto }}" alt="History Image">
-      </div>
-      <div class="image-card">
-        <h3>Image History</h3>
-        <img src="{{ userphoto }}" alt="History Image">
-      </div>
     </div>
   </div>
 
 </body>
+
 </html>
