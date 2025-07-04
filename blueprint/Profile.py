@@ -21,7 +21,7 @@ def get_db_connection():
 def profile():
     id = session.get('id')
     if not id:
-        return redirect(url_for('auth.auth'))
+        return redirect(url_for('auth.login_page'))
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
