@@ -49,5 +49,5 @@ def profile():
 @bp_profile.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login_page'))
 
